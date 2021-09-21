@@ -1,0 +1,15 @@
+note over browser:
+the browser executes the submit event 
+that sends the users input to the server
+as JSON-data.
+javascript code rerender the note list
+on the page.
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+
+note over server:
+the server responds with HTTP status code 201 (created)
+end note
+
+server->browser: HTTP status code 201
