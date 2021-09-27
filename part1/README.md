@@ -12,6 +12,6 @@
 ### unicafe 1.10 :heavy_check_mark:
 ### unicafe 1.11 :heavy_check_mark:
 
-### anecdotes 1.12
-### anecdotes 1.13
-### anecdotes 1.14
+### anecdotes 1.12 :heavy_check_mark:
+### anecdotes 1.13 :heavy_check_mark:
+### anecdotes 1.14 :heavy_check_mark:
