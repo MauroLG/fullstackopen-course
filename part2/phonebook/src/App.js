@@ -3,12 +3,16 @@ import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
 import personsService from './services/persons'
+import Notification from './components/Notification'
+import Error from './components/Error'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     personsService
@@ -16,6 +20,10 @@ const App = () => {
       .then(initialPersons => {
         setPersons(initialPersons)
       }).catch(error => {
+        setErrorMessage("The connection to the server has been lost")
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
         console.log("The following error has occurred: ", error)
       }
       )
@@ -46,7 +54,15 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+          setNotificationMessage(`Added ${returnedPerson.name}`)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 5000)
         }).catch(error => {
+          setErrorMessage("The connection to the server has been lost")
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
           console.log("The following error has occurred: ", error)
         }
         )
@@ -60,7 +76,15 @@ const App = () => {
             setPersons(persons.map(person => person.id !== auxPerson.id ? person : returnedPerson))
             setNewName('')
             setNewNumber('')
+            setNotificationMessage(`${returnedPerson.name} phone number has been modified`)
+            setTimeout(() => {
+              setNotificationMessage(null)
+            }, 5000)
           }).catch(error => {
+            setErrorMessage("The connection to the server has been lost")
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
             console.log("The following error has occurred: ", error)
           }
           )
@@ -72,7 +96,12 @@ const App = () => {
       personsService
         .remove(id)
         .then(response => {
+          console.log(response)
           if (response.status === 200) {
+            setNotificationMessage(`Deleted ${name}`)
+            setTimeout(() => {
+              setNotificationMessage(null)
+            }, 5000)
             personsService
               .getAll()
               .then(initialPersons => {
@@ -82,6 +111,12 @@ const App = () => {
               }
               )
           }
+        }).catch(error => {
+          setErrorMessage(`Information of ${name} has already been removed from server`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+          console.log("The following error has occurred: ", error)
         })
     }
   }
@@ -89,8 +124,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notificationMessage} />
+      <Error message={errorMessage} />
       <Filter handleChange={handleFilterChange} />
-      <h2>Add a new</h2>
+      <h2>Add a new </h2>
       <PersonForm handleSubmit={handleSubmit} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} valueName={newName} valueNumber={newNumber} />
       <h2>Numbers</h2>
       <Persons filter={filter} persons={persons} handleDelete={handleDelete} />
