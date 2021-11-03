@@ -41,13 +41,13 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const newPersonObj = {
       name: newName,
       number: newNumber,
     }
 
     if (!persons.some(person => person.name === newPersonObj.name)) {
-
       personsService
         .create(newPersonObj)
         .then(returnedPerson => {
@@ -59,19 +59,18 @@ const App = () => {
             setNotificationMessage(null)
           }, 5000)
         }).catch(error => {
-          setErrorMessage("The connection to the server has been lost")
+          setErrorMessage(error.response.data.error)
           setTimeout(() => {
             setErrorMessage(null)
           }, 5000)
-          console.log("The following error has occurred: ", error)
+          console.log(error.response.data)
         }
         )
     }
     else {
       const auxPerson = persons.find(person => person.name === newPersonObj.name)
-      if (window.confirm(`${auxPerson.name} is already added to phonebook, replace the old number with a new one?`))
-        personsService
-          .update(auxPerson.id, { ...auxPerson, number: newPersonObj.number })
+      if (window.confirm(`${auxPerson.name} is already added to phonebook, replace the old number with a new one?`)) {
+        personsService.update(auxPerson.id, newPersonObj)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id !== auxPerson.id ? person : returnedPerson))
             setNewName('')
@@ -81,13 +80,14 @@ const App = () => {
               setNotificationMessage(null)
             }, 5000)
           }).catch(error => {
-            setErrorMessage("The connection to the server has been lost")
+            setErrorMessage(error.response.data.error)
             setTimeout(() => {
               setErrorMessage(null)
             }, 5000)
             console.log("The following error has occurred: ", error)
           }
           )
+      }
     }
   }
 
@@ -96,8 +96,7 @@ const App = () => {
       personsService
         .remove(id)
         .then(response => {
-          console.log(response)
-          if (response.status === 200) {
+          if (response.status === 204) {
             setNotificationMessage(`Deleted ${name}`)
             setTimeout(() => {
               setNotificationMessage(null)
