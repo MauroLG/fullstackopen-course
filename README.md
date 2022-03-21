@@ -11,3 +11,5 @@
 ### Part 4: Testing Express servers, user administration (Uploaded) :heavy_check_mark:
 
 ### Part 5: Testing React Apps (Uploaded) :heavy_check_mark:
+
+### Part 6: State management with Redux (Uploaded) :heavy_check_mark:
