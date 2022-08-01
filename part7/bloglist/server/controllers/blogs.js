@@ -34,12 +34,23 @@ blogsRouter.post('/', middleware.userExtractor, async (req, res) => {
   res.status(201).json(blogToReturn)
 })
 
+blogsRouter.post('/:id/comments', async (req, res) => {
+  const body = req.body
+  const id = req.params.id
+  const blog = await Blog.findById(id)
+  blog.comments = [...blog.comments, body.comment]
+  blog.save()
+
+  res.status(200).json(blog)
+})
+
+
 blogsRouter.put('/:id', async (req, res) => {
   const body = req.body
   const blog = {
     likes: body.likes
   }
-  const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, blog, { new: true })
+  const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, blog, { new: true }).populate('user', { username: 1, name: 1 })
   res.json(updatedBlog)
 })
 

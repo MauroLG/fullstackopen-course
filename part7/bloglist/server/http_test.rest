@@ -15,7 +15,20 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imxhb
 
 ###
 
+POST http://localhost:3003/api/blogs/62d62c079312a33741818461/comments
+Content-Type: application/json
+
+{
+  "comment": "+10 ty!"
+}
+
+###
+
 GET http://localhost:3003/api/users
+
+###
+
+GET http://localhost:3003/api/users/62d62a149312a33741818457
 
 ###
 
@@ -23,9 +36,9 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-  "username": "laniakea",
-  "password": "laniakea1",
-  "name": "Lania Kea"
+  "username": "bismuth",
+  "password": "bismuth1",
+  "name": "Bis Muth"
 }
 
 ###
