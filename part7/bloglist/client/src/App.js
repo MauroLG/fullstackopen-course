@@ -49,22 +49,22 @@ const App = () => {
 
   if (user === null) {
     return (
-      <>
+      <div className='container mt-5'>
         <Notification notification={notification} />
         <Login />
-      </>
+      </div>
 
     )
   }
 
   return (
-    <div>
-      <h1>Blog App</h1>
+    <div className='container mt-5'>
+      <h1 className='mb-3'>Blog post App</h1>
       <Notification notification={notification} />
       <Navbar></Navbar>
 
       <Routes>
-        <Route path='/' element={<><Togglable buttonLabel='create new blog' ref={blogFormRef}><BlogForm createBlog={createBlog}></BlogForm>
+        <Route path='/' element={<><Togglable buttonLabel='Create new blog' ref={blogFormRef}><BlogForm createBlog={createBlog}></BlogForm>
         </Togglable><BlogList /></>}></Route>
         <Route path='/users' element={<Users users={users} />}></Route>
         <Route path='/users/:id' element={<User user={matchedUser} />}></Route>

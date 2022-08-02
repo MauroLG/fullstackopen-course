@@ -40,17 +40,21 @@ const Blog = ({ blog, loggedUser }) => {
   }
 
   return (
-    <div className='details'>
-      <h2>{blog.title}</h2>
-      <p><a href={blog.url}>{blog.url}</a></p>
-      <p>likes: {blog.likes} <button id="like-button" onClick={handleLike}>like</button></p>
-      <p>added by {blog.user.name}</p>
-      {blog.user.username === loggedUser.username && <button id="remove-button" onClick={handleRemove}>remove</button>}
+    <div className='container-fluid mt-4'>
+      <div className='container-fluid mb-4'>
+        <h3>{blog.title}</h3>
+        <p><a href={blog.url}>{blog.url}</a></p>
+        <p>Likes: {blog.likes} <button id="like-button" className='btn btn-dark btn-sm' onClick={handleLike}>Like</button></p>
+        <p>added by {blog.user.name}</p>
+        {blog.user.username === loggedUser.username && <button id="remove-button" className='btn btn-danger btn-sm' onClick={handleRemove}>Remove</button>}
+      </div>
       <div>
-        <h3>comments</h3>
-        <form onSubmit={addComment}>
-          <input id='comment' name='comment' type="text" onChange={handleChangeComment} value={comment.comment} />
-          <button type="submit">add comment</button>
+        <h3>Comments</h3>
+        <form className='mb-3 input-group w-50' onSubmit={addComment}>
+          <input id='comment' className='form-control' name='comment' type="text" onChange={handleChangeComment} value={comment.comment} />
+          <div className='input-group-append'>
+            <button className='btn btn-dark ms-2' type="submit">Add comment</button>
+          </div>
         </form>
         <ul>
           {

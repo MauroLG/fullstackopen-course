@@ -20,11 +20,17 @@ const Navbar = () => {
   }
 
   return (
-    <div>
-      <Link to='/'>Blogs</Link>
-      <Link to='/users'>Users</Link>
-      <div>{user.name} is logged in <button id='logout-button' onClick={handleLogout}>logout</button></div>
-    </div>
+    <nav className='navbar navbar-expand-lg' style={{ backgroundColor: '#ebf2fa' }}>
+      <div className='container-fluid'>
+        <div className='navbar-collapse' id='navbarMenu'>
+          <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
+            <li className='nav-item'><Link className='nav-link text-uppercase' to='/'>Blogs</Link></li>
+            <li className='nav-item'><Link className='nav-link text-uppercase' to='/users'>Users</Link></li>
+          </ul>
+        </div>
+        <div>{user.name} is logged in <button className='btn btn-secondary btn-sm text-uppercase' id='logout-button' onClick={handleLogout}>Logout</button></div>
+      </div>
+    </nav>
   )
 }
 

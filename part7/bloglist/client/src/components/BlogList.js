@@ -7,25 +7,18 @@ const BlogList = () => {
   const blogs = useSelector(state => state.blogs)
   const sortedBlogs = [...blogs].sort((a, b) => b.likes - a.likes)
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
-
   return (
-    <>
-      <ul>
+    <div className='mt-3'>
+      <h3>Blog list</h3>
+      <ul className='list-group list-group-flush'>
         {sortedBlogs.map(blog =>
-          <li key={blog.id}>
-            <Link to={`blogs/${blog.id}`}>
-              <div className='blog' style={blogStyle}>{blog.title}</div></Link>
+          <li className='list-group-item' key={blog.id}>
+            <Link className='text-reset' to={`blogs/${blog.id}`}>
+              <div className='blog'>{blog.title}</div></Link>
           </li>
         )}
       </ul>
-    </>
+    </div>
   )
 }
 
