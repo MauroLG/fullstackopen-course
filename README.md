@@ -15,3 +15,5 @@
 ### Part 6: State management with Redux (Uploaded) :heavy_check_mark:
 
 ### Part 7: React router, custom hooks, styling app with CSS and webpack :heavy_check_mark: 
+
+### Part 8: GraphQL
